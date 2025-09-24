@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags humanize %}
 {% block content %}
 <div class="container mt-4">
   <h2>Payments</h2>
@@ -16,7 +17,7 @@
       {% for payment in payments %}
       <tr>
         <td>{{ payment.booking.guest }}</td>
-        <td>${{ payment.amount }}</td>
+        <td>UGX {{ payment.amount | intcomma }}</td>
         <td>{{ payment.get_payment_type_display }}</td>
         <td>{{ payment.date_paid|date:"Y-m-d H:i" }}</td>
       </tr>

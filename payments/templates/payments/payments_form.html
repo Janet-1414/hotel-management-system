@@ -1,29 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-4">
-  <h2>Payments</h2>
-  <a href="{% url 'payment_create' %}" class="btn btn-primary mb-3">+ Add Payment</a>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Guest</th>
-        <th>Amount</th>
-        <th>Type</th>
-        <th>Date Paid</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for payment in payments %}
-      <tr>
-        <td>{{ payment.booking.guest }}</td>
-        <td>${{ payment.amount }}</td>
-        <td>{{ payment.get_payment_type_display }}</td>
-        <td>{{ payment.date_paid|date:"Y-m-d H:i" }}</td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="4">No payments recorded</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <h2>New Booking</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success" type="submit">Book</button>
+    <a href="{% url 'guest_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
 </div>
 {% endblock %}

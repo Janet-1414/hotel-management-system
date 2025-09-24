@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Bookings</h2>
+    <a href="{% url 'booking_create' %}" class="btn btn-primary mb-3">+ New Booking</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Guest</th>
+                <th>Room</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.guest }}</td>
+                <td>{{ booking.room }}</td>
+                <td>{{ booking.check_in|date:"Y-m-d" }}</td>
+                <td>{{ booking.check_out|date:"Y-m-d" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No bookings found</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

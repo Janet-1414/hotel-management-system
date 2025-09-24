@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container mt-4">
   <h2>New Booking</h2>
-  <form method="post">
+  <form method="post" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form | crispy }}
     <button class="btn btn-success" type="submit">Book</button>
     <a href="{% url 'guest_list' %}" class="btn btn-secondary">Cancel</a>
   </form>

@@ -33,6 +33,23 @@ def booking_create(request):
     return render(request, "guests/booking_form.html", {"form": form})
 
 
+def booking_list(request):
+    bookings = Booking.objects.all()
+    return render(request, "guests/booking_list.html", {"bookings": bookings})
+
+
+def booking_edit(request, booking_id):
+    booking = get_object_or_404(Booking, pk=booking_id)
+    if request.method == "POST":
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            return redirect("booking_list")
+    else:
+        form = BookingForm(instance=booking)
+    return render(request, "guests/booking_form.html", {"form": form})
+
+
 def guest_edit(request, guest_id):
     guest = get_object_or_404(Guest, pk=guest_id)
     if request.method == "POST":

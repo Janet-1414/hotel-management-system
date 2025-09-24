@@ -5,7 +5,7 @@ from .forms import PaymentForm
 
 def payment_list(request):
     payments = Payment.objects.select_related("booking__guest").all()
-    return render(request, "payments/payment_list.html", {"payments": payments})
+    return render(request, "payments/payments_list.html", {"payments": payments})
 
 
 def payment_create(request):
@@ -16,4 +16,4 @@ def payment_create(request):
             return redirect("payment_list")
     else:
         form = PaymentForm()
-    return render(request, "payments/payment_form.html", {"form": form})
+    return render(request, "payments/payments_form.html", {"form": form})

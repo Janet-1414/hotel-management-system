@@ -23,3 +23,8 @@ class BookingForm(forms.ModelForm):
             "check_in": "Check-in Date",
             "check_out": "Check-out Date",
         }
+
+        error_messages = {
+            "check_in": {"required": "Check-in date is required"},
+            "check_out": {"required": "Check-out date is required"},
+        }

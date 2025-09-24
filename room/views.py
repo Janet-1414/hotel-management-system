@@ -32,3 +32,19 @@ def room_edit(request, pk):
     else:
         form = RoomForm(instance=room)
     return render(request, "rooms/room_form.html", {"form": form})
+
+
+def category_list(request):
+    categories = RoomCategory.objects.all()
+    return render(request, "rooms/category_list.html", {"categories": categories})
+
+
+def category_create(request):
+    if request.method == "POST":
+        form = RoomCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("category_list")
+    else:
+        form = RoomCategoryForm()
+    return render(request, "rooms/category_form.html", {"form": form})

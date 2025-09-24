@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Guests</h2>
+  <a href="{% url 'guest_create' %}" class="btn btn-primary mb-3">+ Add Guest</a>
+  <a href="{% url 'booking_create' %}" class="btn btn-success mb-3">+ New Booking</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Registered</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for guest in guests %}
+      <tr>
+        <td>{{ guest.first_name }} {{ guest.last_name }}</td>
+        <td>{{ guest.phone_number }}</td>
+        <td>{{ guest.email }}</td>
+        <td>{{ guest.date_registered|date:"Y-m-d" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No guests found</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

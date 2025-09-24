@@ -7,9 +7,21 @@ class RoomCategoryForm(forms.ModelForm):
         model = RoomCategory
         fields = ["name", "description", "price_per_night"]
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "description": forms.Textarea(attrs={"class": "form-control"}),
-            "price_per_night": forms.NumberInput(attrs={"class": "form-control"}),
+            "name": forms.TextInput(
+                attrs={
+                    "class": "block w-full px-3 py-2 placeholder-gray-400 text-gray-700"
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "block w-full px-3 py-2 placeholder-gray-400 text-gray-700 h-48"
+                }
+            ),
+            "price_per_night": forms.NumberInput(
+                attrs={
+                    "class": "block w-full px-3 py-2 placeholder-gray-400 text-gray-700"
+                }
+            ),
         }
         labels = {
             "name": "Name",
@@ -67,11 +79,6 @@ class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = ["number", "category", "is_available"]
-        widgets = {
-            "number": forms.TextInput(attrs={"class": "form-control"}),
-            "category": forms.Select(attrs={"class": "form-control"}),
-            "is_available": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        }
         labels = {
             "number": "Room Number",
             "category": "Category",
@@ -94,16 +101,12 @@ class RoomForm(forms.ModelForm):
             },
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["number"].validators.append(self.clean_number)
-        self.fields["category"].validators.append(self.clean_category)
-        self.fields["is_available"].validators.append(self.clean_is_available)
-
     def clean_number(self):
         number = self.cleaned_data["number"]
         if Room.objects.filter(number=number).exists():
             raise forms.ValidationError("Room number already exists")
+        if len(number) < 2 or len(number) > 4:
+            raise forms.ValidationError("Room number must be between 2 and 4 digits")
         return number
 
     def clean_category(self):

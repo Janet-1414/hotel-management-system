@@ -12,9 +12,21 @@ class PaymentForm(forms.ModelForm):
             "payment_type": "Payment Used Type",
         }
         widgets = {
-            "booking": forms.Select(attrs={"class": "form-control"}),
-            "amount": forms.NumberInput(attrs={"class": "form-control"}),
-            "payment_type": forms.Select(attrs={"class": "form-control"}),
+            "booking": forms.Select(
+                attrs={
+                    "class": "block w-full px-3 py-1.5 text-base font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500"
+                }
+            ),
+            "amount": forms.NumberInput(
+                attrs={
+                    "class": "block w-full px-3 py-1.5 text-base font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500"
+                }
+            ),
+            "payment_type": forms.Select(
+                attrs={
+                    "class": "block w-full px-3 py-1.5 text-base font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-indigo-500"
+                }
+            ),
         }
         error_messages = {
             "booking": {
@@ -32,16 +44,13 @@ class PaymentForm(forms.ModelForm):
         amount = self.cleaned_data["amount"]
         if amount <= 0:
             raise forms.ValidationError("Amount must be greater than 0")
+        elif amount <= 1000:
+            raise forms.ValidationError("Amount must be greater than 1000")
         return amount
 
     def clean_payment_type(self):
         payment_type = self.cleaned_data["payment_type"]
-        if payment_type not in Payment.PAYMENT_TYPES:
+        validy_types = [choice[0] for choice in Payment.PAYMENT_TYPES]
+        if payment_type not in validy_types:
             raise forms.ValidationError("Invalid payment type")
         return payment_type
-
-    def clean_booking(self):
-        booking = self.cleaned_data["booking"]
-        if not booking.is_confirmed:
-            raise forms.ValidationError("Booking is not confirmed")
-        return booking

@@ -1,13 +1,27 @@
 {% extends "base.html" %} 
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container mt-4">
-	<h2>{{ form.instance.pk|yesno:"Edit Room,Add Room" }}</h2>
-	<form method="post" novalidate>
-		{% csrf_token %} 
-        {{ form | crispy }}
-		<button class="btn btn-success" type="submit">Save</button>
-		<a href="{% url 'room_list' %}" class="btn btn-secondary">Cancel</a>
-	</form>
-</div>
+	<div class="bg-white shadow-md rounded-lg p-6">
+		<h2 class="text-2xl font-semibold text-gray-800 mb-6">
+			{{ form.instance.pk|yesno:"Edit Room,Add Room" }}
+		</h2>
+
+		<form method="post" novalidate class="space-y-4">
+			{% csrf_token %}
+			{{ form | crispy }}
+			<div class="flex items-center space-x-4 pt-4">
+			<button 
+				type="submit" 
+				class="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+				Save
+			</button>
+			<a 
+				href="{% url 'room_list' %}" 
+				class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+				Cancel
+			</a>
+			</div>
+		</form>
+	</div>
 {% endblock %}
+

@@ -24,7 +24,6 @@ def booking_create(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save()
-            # Mark room as unavailable
             booking.room.is_available = False
             booking.room.save()
             return redirect("guest_list")

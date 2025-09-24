@@ -1,40 +1,48 @@
-{% extends "base.html" %} {% block content %}
-<div class="container mt-4">
-	<h2>Rooms</h2>
-	<a href="{% url 'room_create' %}" class="btn btn-primary mb-3">+ Add Room</a>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Room No</th>
-				<th>Category</th>
-				<th>Availability</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for room in rooms %}
-			<tr>
-				<td>{{ room.number }}</td>
-				<td>{{ room.category.name }}</td>
-				<td>
-					{% if room.is_available %}
-					<span class="badge bg-success">Available</span>
-					{% else %}
-					<span class="badge bg-danger">Occupied</span>
-					{% endif %}
-				</td>
-				<td>
-					<a href="{% url 'room_edit' room.id %}" class="btn btn-sm btn-warning"
-						>Edit</a
-					>
-				</td>
-			</tr>
-			{% empty %}
-			<tr>
-				<td colspan="4">No rooms available</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-white shadow rounded-lg p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold text-gray-800">Rooms</h2>
+    <a href="{% url 'room_create' %}"
+       class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700">
+       Add Room
+    </a>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-gray-200 divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Number</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Category</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Available</th>
+          <th class="px-6 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        {% for room in rooms %}
+        <tr>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ room.number }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ room.category }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">
+            {% if room.is_available %}
+              <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded">Yes</span>
+            {% else %}
+              <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded">No</span>
+            {% endif %}
+          </td>
+          <td class="px-6 py-4 text-sm space-x-2">
+            <a href="{% url 'room_edit' room.id %}" class="text-indigo-600 hover:underline">Edit</a>
+            <a href="" class="text-red-600 hover:underline">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">No rooms found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

@@ -16,8 +16,3 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.booking.guest} - {self.amount} ({self.payment_type})"
-
-    class Meta:
-        ordering = ["-date_paid"]
-        verbose_name = "Payment"
-        verbose_name_plural = "Payments"

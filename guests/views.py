@@ -9,27 +9,13 @@ def guest_list(request):
 
 
 def guest_create(request):
-    if request.method == "POST":
-        form = GuestForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("guest_list")
-    else:
-        form = GuestForm()
-    return render(request, "guests/guest_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "guests/guest_form.html", context)
 
 
 def booking_create(request):
-    if request.method == "POST":
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            booking = form.save()
-            booking.room.is_available = False
-            booking.room.save()
-            return redirect("guest_list")
-    else:
-        form = BookingForm()
-    return render(request, "guests/booking_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "guests/booking_form.html", context)
 
 
 def booking_list(request):
@@ -38,30 +24,14 @@ def booking_list(request):
 
 
 def booking_edit(request, booking_id):
-    booking = get_object_or_404(Booking, pk=booking_id)
-    if request.method == "POST":
-        form = BookingForm(request.POST, instance=booking)
-        if form.is_valid():
-            form.save()
-            return redirect("booking_list")
-    else:
-        form = BookingForm(instance=booking)
-    return render(request, "guests/booking_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "guests/booking_form.html", context)
 
 
 def guest_edit(request, guest_id):
-    guest = get_object_or_404(Guest, pk=guest_id)
-    if request.method == "POST":
-        form = GuestForm(request.POST, instance=guest)
-        if form.is_valid():
-            form.save()
-            return redirect("guest_list")
-    else:
-        form = GuestForm(instance=guest)
-    return render(request, "guests/guest_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "guests/guest_form.html", context)
 
 
 def guest_delete(request, guest_id):
-    guest = get_object_or_404(Guest, pk=guest_id)
-    guest.delete()
-    return redirect("guest_list")
+    pass

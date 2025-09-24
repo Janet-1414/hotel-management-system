@@ -3,7 +3,6 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Room, RoomCategory
-from .forms import RoomForm, RoomCategoryForm
 
 
 def room_list(request):
@@ -12,26 +11,13 @@ def room_list(request):
 
 
 def room_create(request):
-    if request.method == "POST":
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("room_list")
-    else:
-        form = RoomForm()
-    return render(request, "rooms/room_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "rooms/room_form.html", context)
 
 
 def room_edit(request, pk):
-    room = get_object_or_404(Room, pk=pk)
-    if request.method == "POST":
-        form = RoomForm(request.POST, instance=room)
-        if form.is_valid():
-            form.save()
-            return redirect("room_list")
-    else:
-        form = RoomForm(instance=room)
-    return render(request, "rooms/room_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "rooms/room_form.html", context)
 
 
 def category_list(request):
@@ -40,11 +26,5 @@ def category_list(request):
 
 
 def category_create(request):
-    if request.method == "POST":
-        form = RoomCategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("category_list")
-    else:
-        form = RoomCategoryForm()
-    return render(request, "rooms/category_form.html", {"form": form})
+    context = {"form": []}
+    return render(request, "rooms/category_form.html", context)

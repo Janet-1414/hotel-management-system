@@ -9,5 +9,14 @@ def payment_list(request):
 
 
 def payment_create(request):
-    context = {"form": []}
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payment_list')
+    else:
+        form = PaymentForm()
+    context = {
+        "form": form
+        }
     return render(request, "payments/payments_form.html", context)

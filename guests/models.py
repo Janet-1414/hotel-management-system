@@ -5,8 +5,8 @@ from room.models import Room
 class Guest(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=False, null=True)
+    email = models.EmailField(blank=False, null=True)
     date_registered = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

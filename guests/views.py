@@ -9,12 +9,30 @@ def guest_list(request):
 
 
 def guest_create(request):
-    context = {"form": []}
+    if request.method == 'POST':
+        form = GuestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('guest_list')
+        
+    else:
+        form = GuestForm()
+    context = {
+        "form": form
+        }
     return render(request, "guests/guest_form.html", context)
 
 
 def booking_create(request):
-    context = {"form": []}
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('booking_list')
+    form = BookingForm()
+    context = {
+        "form": form
+        }
     return render(request, "guests/booking_form.html", context)
 
 

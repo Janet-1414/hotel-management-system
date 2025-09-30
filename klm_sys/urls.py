@@ -23,6 +23,7 @@ urlpatterns = [
     path("rooms/", include("room.urls")),
     path("guests/", include("guests.urls")),
     path("payments/", include("payments.urls")),
+    path("", include('staff.urls'))
 ]
 
 admin.site.site_header = "KLM Admin"

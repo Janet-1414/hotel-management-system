@@ -27,8 +27,22 @@ def room_create(request):
 
 
 def room_edit(request, pk):
-    context = {"form": []}
+    room = get_object_or_404(Room, pk=pk)
+
+    if request.method == 'POST':
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+            return redirect("room_list")
+    else:  
+        form = RoomForm(instance=room)
+
+    context = {
+        "form": form,
+        "room": room
+    }
     return render(request, "rooms/room_form.html", context)
+
 
 
 def category_list(request):

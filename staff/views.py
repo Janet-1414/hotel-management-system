@@ -19,7 +19,7 @@ def register(request):
 
 def login_user(request):
     if request.method == 'POST':
-        form = staffAuthenticationForm(request.POST)
+        form = staffAuthenticationForm(request,data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)

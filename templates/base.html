@@ -7,19 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-900">
-  <!-- Navbar -->
-  <nav class="bg-indigo-600 p-4">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="/" class="text-white text-lg font-semibold">Hotel System</a>
-      <div class="space-x-4">       
-        <a href="{% url 'room_list' %}" class="text-indigo-100 hover:text-white">Rooms</a>
-         <a href="{% url 'guest_list' %}" class="text-indigo-100 hover:text-white">Guests</a>
-        <a href="{% url 'payment_list' %}" class="text-indigo-100 hover:text-white">Payments</a>
-        <a href="{% url 'category_list' %}" class="text-indigo-100 hover:text-white">Categories</a>
-        <a href="{% url 'booking_list' %}" class="text-indigo-100 hover:text-white">Bookings</a>
-      </div>
-    </div>
-  </nav>
+  {% block nav %}{% endblock nav %}
 
   <main class="max-w-7xl mx-auto p-6">
     {% block content %}{% endblock %}

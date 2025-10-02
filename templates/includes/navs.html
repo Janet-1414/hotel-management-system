@@ -1,0 +1,15 @@
+<!-- Navbar -->
+  <nav class="bg-indigo-600 p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-white text-lg font-semibold">Hotel System</a>
+      <div class="space-x-4">       
+        <a href="{% url 'room_list' %}" class="text-indigo-100 hover:text-white">Rooms</a>
+         <a href="{% url 'guest_list' %}" class="text-indigo-100 hover:text-white">Guests</a>
+    {% if user.role == 'MANAGER' %}
+        <a href="{% url 'payment_list' %}" class="text-indigo-100 hover:text-white">Payments</a>
+        <a href="{% url 'category_list' %}" class="text-indigo-100 hover:text-white">Categories</a>
+        <a href="{% url 'booking_list' %}" class="text-indigo-100 hover:text-white">Bookings</a>
+    {% endif %} 
+      </div>
+    </div>
+  </nav>
